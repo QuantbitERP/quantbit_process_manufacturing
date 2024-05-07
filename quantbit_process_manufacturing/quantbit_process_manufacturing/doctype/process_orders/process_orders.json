@@ -1,0 +1,364 @@
+{
+ "actions": [],
+ "autoname": "format:{series}{####}",
+ "creation": "2024-04-19 11:35:33.709369",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_1",
+  "series",
+  "process_name",
+  "column_break_e3bil",
+  "date",
+  "company",
+  "process_definitions",
+  "stock_locations_section",
+  "source_warehouse",
+  "wip_warehouse",
+  "column_break_nkmcx",
+  "target_warehouse",
+  "scrap_warehouse",
+  "materials_section",
+  "set_source_warehouse",
+  "section_break_ukjkq",
+  "materials",
+  "section_break_k9x0i",
+  "materials_qty",
+  "column_break_kwyzv",
+  "materials_amount",
+  "section_break_jz8l1",
+  "operation_cost",
+  "total_operation_cost",
+  "finished_products_section",
+  "set_target_warehouse",
+  "section_break_fpjpy",
+  "finished_products",
+  "section_break_iabz5",
+  "finished_products_qty",
+  "column_break_qhjvb",
+  "finished_products_amount",
+  "scrap_section",
+  "set_target",
+  "section_break_jaykk",
+  "scrap",
+  "section_break_zklxu",
+  "scrap_qty",
+  "all_finish_qty",
+  "column_break_mdkf0",
+  "scrap_amount",
+  "total_all_amount",
+  "column_break_36",
+  "diff_qty",
+  "diff_amt",
+  "amended_from",
+  "start_button_flag",
+  "finish_button_flag"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_1",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "PM-"
+  },
+  {
+   "fieldname": "process_name",
+   "fieldtype": "Data",
+   "label": "Process Name"
+  },
+  {
+   "fieldname": "column_break_e3bil",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "stock_locations_section",
+   "fieldtype": "Section Break",
+   "label": "Stock Locations"
+  },
+  {
+   "fieldname": "source_warehouse",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Source Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "wip_warehouse",
+   "fieldtype": "Link",
+   "label": "WIP Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "column_break_nkmcx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "target_warehouse",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Target Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "scrap_warehouse",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Scrap Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "materials_section",
+   "fieldtype": "Section Break",
+   "label": "Materials"
+  },
+  {
+   "fieldname": "set_source_warehouse",
+   "fieldtype": "Link",
+   "label": "Set Source Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "section_break_ukjkq",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "materials",
+   "fieldtype": "Table",
+   "label": "Materials ",
+   "options": "Process Order Raw Material"
+  },
+  {
+   "fieldname": "section_break_k9x0i",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "materials_qty",
+   "fieldtype": "Float",
+   "label": "Total Materials  Qty",
+   "precision": "2"
+  },
+  {
+   "fieldname": "column_break_kwyzv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "materials_amount",
+   "fieldtype": "Currency",
+   "label": "Total Materials  Amount",
+   "precision": "2"
+  },
+  {
+   "fieldname": "section_break_jz8l1",
+   "fieldtype": "Section Break",
+   "label": "Additional Costs"
+  },
+  {
+   "fieldname": "operation_cost",
+   "fieldtype": "Table",
+   "label": "Operation Cost",
+   "options": "Process Order Operation Cost"
+  },
+  {
+   "fieldname": "total_operation_cost",
+   "fieldtype": "Currency",
+   "label": "Total Operation Cost"
+  },
+  {
+   "fieldname": "finished_products_section",
+   "fieldtype": "Section Break",
+   "label": "Finished Products"
+  },
+  {
+   "fieldname": "set_target_warehouse",
+   "fieldtype": "Link",
+   "label": "Set Target Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "section_break_fpjpy",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "finished_products",
+   "fieldtype": "Table",
+   "label": "Finished Products",
+   "options": "Process Order Finished Products"
+  },
+  {
+   "fieldname": "section_break_iabz5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "finished_products_qty",
+   "fieldtype": "Float",
+   "label": "Total Finished Qty",
+   "precision": "2"
+  },
+  {
+   "fieldname": "column_break_qhjvb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "finished_products_amount",
+   "fieldtype": "Currency",
+   "label": "Total Finished Amount",
+   "precision": "2"
+  },
+  {
+   "fieldname": "scrap_section",
+   "fieldtype": "Section Break",
+   "label": "Scrap"
+  },
+  {
+   "fieldname": "set_target",
+   "fieldtype": "Link",
+   "label": "Set Target Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "section_break_jaykk",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "scrap",
+   "fieldtype": "Table",
+   "label": "Scrap",
+   "options": "Process Order Scrap Item"
+  },
+  {
+   "fieldname": "section_break_zklxu",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "scrap_qty",
+   "fieldtype": "Float",
+   "label": "Total Scrap Qty",
+   "precision": "2"
+  },
+  {
+   "fieldname": "all_finish_qty",
+   "fieldtype": "Float",
+   "label": "Output Qty",
+   "precision": "2"
+  },
+  {
+   "fieldname": "column_break_mdkf0",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "scrap_amount",
+   "fieldtype": "Currency",
+   "label": "Total Scrap  Amount",
+   "precision": "2"
+  },
+  {
+   "fieldname": "total_all_amount",
+   "fieldtype": "Currency",
+   "label": "Total Output amount",
+   "precision": "2"
+  },
+  {
+   "fieldname": "column_break_36",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "diff_qty",
+   "fieldtype": "Float",
+   "label": "Difference Quantity",
+   "precision": "2"
+  },
+  {
+   "fieldname": "diff_amt",
+   "fieldtype": "Currency",
+   "label": "Difference  Amount",
+   "precision": "2"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Process Orders",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "process_definitions",
+   "fieldtype": "Link",
+   "label": "Process Definitions",
+   "options": "Process Definitions"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "1",
+   "fieldname": "start_button_flag",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Start Button Flag",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "1",
+   "fieldname": "finish_button_flag",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Finish Button Flag",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "link_doctype": "Stock Entry",
+   "link_fieldname": "custom_process_orders"
+  }
+ ],
+ "modified": "2024-04-27 12:44:14.888388",
+ "modified_by": "Administrator",
+ "module": "Quantbit Process Manufacturing",
+ "name": "Process Orders",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
