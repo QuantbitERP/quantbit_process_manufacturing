@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "format:{series}{####}",
+ "autoname": "naming_series:",
  "creation": "2024-04-19 11:35:33.709369",
  "default_view": "List",
  "doctype": "DocType",
@@ -8,7 +8,7 @@
  "engine": "InnoDB",
  "field_order": [
   "section_break_1",
-  "series",
+  "naming_series",
   "process_name",
   "column_break_e3bil",
   "date",
@@ -60,12 +60,6 @@
   {
    "fieldname": "section_break_1",
    "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "series",
-   "fieldtype": "Select",
-   "label": "Series",
-   "options": "PM-"
   },
   {
    "fieldname": "process_name",
@@ -324,6 +318,12 @@
    "hidden": 1,
    "label": "Finish Button Flag",
    "read_only": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "PM-"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -334,11 +334,11 @@
    "link_fieldname": "custom_process_orders"
   }
  ],
- "modified": "2024-04-27 12:44:14.888388",
+ "modified": "2024-05-07 13:59:21.208136",
  "modified_by": "Administrator",
  "module": "Quantbit Process Manufacturing",
  "name": "Process Orders",
- "naming_rule": "Expression",
+ "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
   {
