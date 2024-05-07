@@ -84,7 +84,7 @@ class ProcessOrders(Document):
 				"uom":d.uom,
 				# "transfer_qty":0,
 				# "conversion_factor":0,
-				"s_warehouse":self.set_source_warehouse,
+				"s_warehouse":d.source_warehouse,
 				"t_warehouse":self.wip_warehouse
 			})   
 		doc.custom_process_orders = self.name    
