@@ -1,7 +1,45 @@
 // Copyright (c) 2024, abhishek shinde and contributors
 // For license information, please see license.txt
 
+function change_date(frm){
+	// console.log(frm.doc.materials+"=="+frm.doc.scrap)
+	if(frm.doc.materials){
+		frm.doc.materials.forEach(row=>{
+			row.date = frm.doc.date
+		})
+	}
+	if(frm.doc.store_materials_consumables){
+	frm.doc.store_materials_consumables.forEach(row=>{
+		row.date = frm.doc.date
+	})
+	}
+	if(frm.doc.operation_cost){
+		frm.doc.operation_cost.forEach(row=>{
+			row.date = frm.doc.date
+		})
+	}
+	if(frm.doc.finished_products){
+		
+	frm.doc.finished_products.forEach(row=>{
+		row.date = frm.doc.date
+	})
+	}
+	if(frm.doc.scrap){
+		frm.doc.scrap.forEach(row=>{
+			row.date = frm.doc.date
+		})
+	}
+	
+
+}
+
+frappe.ui.form.on("Process Definitions",{
+	refresh:function(frm){change_date(frm)},
+	date:function(frm){change_date(frm)},
+})
+
 frappe.ui.form.on("Process Definition Raw Material", {
+	materials_add:function(frm){change_date(frm)},
 	quantity:function(frm, cdt, cdn){
 	var d = locals[cdt][cdn];
 	var total1 = 0;
@@ -17,8 +55,13 @@ frappe.ui.form.on("Process Definition Raw Material", {
 	refresh_field("total_quantity");
    }
  });
+
+ frappe.ui.form.on('Store Materials Consumables',{
+	store_materials_consumables_add:function(frm){change_date(frm)}
+})
  
  frappe.ui.form.on("Process Definition Operation Cost",{
+	operation_cost_add:function(frm){change_date(frm)},
 	cost: function(frm,cdt,cdn){
 		var d = locals[cdt][cdn];
 		var total1 = 0;
@@ -36,6 +79,7 @@ frappe.ui.form.on("Process Definition Raw Material", {
  })
 
  frappe.ui.form.on("Process Definition Finished Products", {
+	finished_products_add:function(frm){change_date(frm)},
 	quantity:function(frm, cdt, cdn){
 	var d = locals[cdt][cdn];
 	var total1 = 0;
@@ -66,6 +110,7 @@ frappe.ui.form.on("Process Definition Raw Material", {
  });
 
  frappe.ui.form.on("Process Definition Scrap Item",{
+	scrap_add:function(frm){change_date(frm)},
 	amount: function(frm,cdt,cdn){
 		var d = locals[cdt][cdn];
 		var total1 = 0;

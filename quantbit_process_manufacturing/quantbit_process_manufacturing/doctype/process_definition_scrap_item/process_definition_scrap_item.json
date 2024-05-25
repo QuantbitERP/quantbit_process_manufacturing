@@ -15,7 +15,8 @@
   "amount",
   "item_name",
   "column_break_hnbhk",
-  "target_warehouse"
+  "target_warehouse",
+  "date"
  ],
  "fields": [
   {
@@ -78,12 +79,17 @@
    "fieldtype": "Link",
    "label": "Target Warehouse",
    "options": "Warehouse"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "date"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-04-22 12:02:25.866824",
+ "modified": "2024-05-14 16:07:50.572444",
  "modified_by": "Administrator",
  "module": "Quantbit Process Manufacturing",
  "name": "Process Definition Scrap Item",

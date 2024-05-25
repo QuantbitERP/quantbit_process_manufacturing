@@ -24,36 +24,36 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Process Manufacturing",
-   "link_count": 0,
-   "link_to": "Process Manufacturing",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Process Manufacturing Setting",
-   "link_count": 0,
-   "link_to": "Quantbit Process Manufacturing Setting",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
    "label": "Process Loss",
    "link_count": 0,
    "link_to": "Quantbit Process Loss",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Process Definitions",
+   "link_count": 0,
+   "link_to": "Process Definitions",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Process Orders",
+   "link_count": 0,
+   "link_to": "Process Orders",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2024-04-02 16:53:01.143359",
- "modified_by": "Administrator",
+ "modified": "2024-05-13 13:16:22.281658",
+ "modified_by": "akshay.m@erpdata.in",
  "module": "Quantbit Process Manufacturing",
  "name": "Quantbit Manufacturing Process",
  "number_cards": [],

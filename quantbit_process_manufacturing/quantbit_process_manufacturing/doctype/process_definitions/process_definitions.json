@@ -10,6 +10,8 @@
   "section_break_1",
   "series",
   "process_name",
+  "is_material_transfer_required",
+  "for_multiple_inputs",
   "column_break_e3bil",
   "date",
   "company",
@@ -23,10 +25,12 @@
   "set_source_warehouse",
   "section_break_ukjkq",
   "materials",
+  "section_break_dxx1e",
   "total_quantity",
-  "section_break_k9x0i",
   "column_break_kwyzv",
   "materials_amount",
+  "section_break_k9x0i",
+  "store_materials_consumables",
   "section_break_jz8l1",
   "operation_cost",
   "total_operation_cost",
@@ -154,8 +158,7 @@
    "fieldname": "materials_amount",
    "fieldtype": "Currency",
    "label": "Total Materials  Amount",
-   "precision": "2",
-   "read_only": 1
+   "precision": "2"
   },
   {
    "fieldname": "section_break_jz8l1",
@@ -297,6 +300,28 @@
    "fieldname": "total_quantity",
    "fieldtype": "Float",
    "label": "Total Quantity"
+  },
+  {
+   "fieldname": "store_materials_consumables",
+   "fieldtype": "Table",
+   "label": "Store Materials Consumables",
+   "options": "Store Materials Consumables"
+  },
+  {
+   "fieldname": "section_break_dxx1e",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_material_transfer_required",
+   "fieldtype": "Check",
+   "label": "Is Material Transfer Required"
+  },
+  {
+   "default": "0",
+   "fieldname": "for_multiple_inputs",
+   "fieldtype": "Check",
+   "label": "For Multiple Inputs"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -311,7 +336,7 @@
    "link_fieldname": "process_definitions"
   }
  ],
- "modified": "2024-04-24 18:03:19.705765",
+ "modified": "2024-05-25 14:03:06.863207",
  "modified_by": "Administrator",
  "module": "Quantbit Process Manufacturing",
  "name": "Process Definitions",
@@ -332,8 +357,22 @@
    "share": 1,
    "submit": 1,
    "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Stock User",
+   "share": 1,
+   "submit": 1,
+   "write": 1
   }
  ],
+ "search_fields": "process_name",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
