@@ -172,7 +172,7 @@ frappe.ui.form.on('Process Orders', {
 		})
 	}
 })
-
+// process orders
 frappe.ui.form.on('Process Orders', {
 	refresh: function (frm) {
 		if (frm.doc.docstatus === 1 && frm.doc.start_button_flag === 1 && frm.doc.is_material_transfer_required) {
