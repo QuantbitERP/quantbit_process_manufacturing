@@ -15,7 +15,11 @@
   "amount",
   "item_name",
   "column_break_mxbds",
-  "source_warehouse"
+  "source_warehouse",
+  "date",
+  "branch",
+  "season",
+  "cost_center"
  ],
  "fields": [
   {
@@ -79,12 +83,35 @@
    "in_list_view": 1,
    "label": "Source Warehouse",
    "options": "Warehouse"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "date"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "season",
+   "fieldtype": "Link",
+   "label": "Season",
+   "options": "Season"
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-04-22 12:02:27.267908",
+ "modified": "2024-05-28 17:49:30.333749",
  "modified_by": "Administrator",
  "module": "Quantbit Process Manufacturing",
  "name": "Process Definition Raw Material",

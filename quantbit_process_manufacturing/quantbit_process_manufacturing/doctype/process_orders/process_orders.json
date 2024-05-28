@@ -10,10 +10,16 @@
   "section_break_1",
   "naming_series",
   "process_name",
+  "season",
+  "branch",
+  "for_multiple_inputs",
+  "is_material_transfer_required",
   "column_break_e3bil",
   "date",
+  "time",
   "company",
   "process_definitions",
+  "cost_center",
   "stock_locations_section",
   "source_warehouse",
   "wip_warehouse",
@@ -24,10 +30,12 @@
   "set_source_warehouse",
   "section_break_ukjkq",
   "materials",
-  "section_break_k9x0i",
+  "section_break_gppm8",
   "materials_qty",
-  "column_break_kwyzv",
+  "column_break_uaj3m",
   "materials_amount",
+  "section_break_k9x0i",
+  "store_materials_consumables",
   "section_break_jz8l1",
   "operation_cost",
   "total_operation_cost",
@@ -137,7 +145,8 @@
    "fieldname": "materials",
    "fieldtype": "Table",
    "label": "Materials ",
-   "options": "Process Order Raw Material"
+   "options": "Process Order Raw Material",
+   "read_only_depends_on": "eval:doc.for_multiple_inputs == 1"
   },
   {
    "fieldname": "section_break_k9x0i",
@@ -148,10 +157,6 @@
    "fieldtype": "Float",
    "label": "Total Materials  Qty",
    "precision": "2"
-  },
-  {
-   "fieldname": "column_break_kwyzv",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "materials_amount",
@@ -324,6 +329,58 @@
    "fieldtype": "Select",
    "label": "Series",
    "options": "PM-"
+  },
+  {
+   "fieldname": "store_materials_consumables",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "Store Materials Consumables",
+   "options": "Store Materials Consumables"
+  },
+  {
+   "fieldname": "column_break_uaj3m",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_gppm8",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_material_transfer_required",
+   "fieldtype": "Check",
+   "label": "Is Material Transfer Required",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "for_multiple_inputs",
+   "fieldtype": "Check",
+   "label": "For Multiple Inputs",
+   "read_only": 1
+  },
+  {
+   "fieldname": "time",
+   "fieldtype": "Time",
+   "label": "Time"
+  },
+  {
+   "fieldname": "season",
+   "fieldtype": "Link",
+   "label": "Season",
+   "options": "Season"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -334,7 +391,7 @@
    "link_fieldname": "custom_process_orders"
   }
  ],
- "modified": "2024-05-07 13:59:21.208136",
+ "modified": "2024-05-28 17:54:01.491193",
  "modified_by": "Administrator",
  "module": "Quantbit Process Manufacturing",
  "name": "Process Orders",
@@ -352,6 +409,19 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Stock User",
    "share": 1,
    "submit": 1,
    "write": 1

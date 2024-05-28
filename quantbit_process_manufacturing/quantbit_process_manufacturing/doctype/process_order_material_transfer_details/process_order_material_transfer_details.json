@@ -1,81 +1,47 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2024-04-19 11:07:48.553149",
+ "creation": "2024-05-22 10:36:53.930405",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "item",
-  "yeild",
-  "rate",
-  "uom",
-  "quantity",
-  "amount",
+  "item_code",
   "item_name",
-  "column_break_mxbds",
+  "qty",
   "source_warehouse",
+  "available_qty",
+  "column_break_vskbf",
   "date",
+  "target_warehouse",
   "season",
   "branch",
   "cost_center"
  ],
  "fields": [
   {
-   "fieldname": "item",
+   "fieldname": "item_code",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Item",
-   "options": "Item"
+   "label": "Item Code",
+   "options": "Item",
+   "reqd": 1
   },
   {
-   "default": "0",
-   "fieldname": "yeild",
-   "fieldtype": "Float",
-   "in_list_view": 1,
-   "label": "Yeild",
-   "precision": "2"
-  },
-  {
-   "default": "0",
-   "fieldname": "rate",
-   "fieldtype": "Currency",
-   "in_list_view": 1,
-   "label": "Rate",
-   "precision": "2"
-  },
-  {
-   "fetch_from": "item.stock_uom",
-   "fieldname": "uom",
-   "fieldtype": "Link",
-   "label": "UOM",
-   "options": "UOM"
-  },
-  {
-   "default": "0",
-   "fieldname": "quantity",
-   "fieldtype": "Float",
-   "in_list_view": 1,
-   "label": "Quantity",
-   "precision": "2"
-  },
-  {
-   "fieldname": "amount",
-   "fieldtype": "Currency",
-   "in_list_view": 1,
-   "label": "Amount",
-   "precision": "2"
-  },
-  {
-   "fetch_from": "item.item_name",
+   "fetch_from": "item_code.item_name",
    "fieldname": "item_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Item Name"
   },
   {
-   "fieldname": "column_break_mxbds",
-   "fieldtype": "Column Break"
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Qty",
+   "precision": "2",
+   "reqd": 1
   },
   {
    "fieldname": "source_warehouse",
@@ -86,9 +52,23 @@
    "reqd": 1
   },
   {
-   "fieldname": "date",
-   "fieldtype": "Date",
-   "label": "date"
+   "fieldname": "available_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Available Qty",
+   "precision": "2"
+  },
+  {
+   "fieldname": "column_break_vskbf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "target_warehouse",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Target Warehouse",
+   "options": "Warehouse",
+   "reqd": 1
   },
   {
    "fieldname": "season",
@@ -107,15 +87,20 @@
    "fieldtype": "Link",
    "label": "Cost Center",
    "options": "Cost Center"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-05-28 17:56:30.119824",
+ "modified": "2024-05-22 16:03:26.779150",
  "modified_by": "Administrator",
  "module": "Quantbit Process Manufacturing",
- "name": "Process Order Raw Material",
+ "name": "Process Order Material Transfer Details",
  "owner": "Administrator",
  "permissions": [],
  "sort_field": "modified",
