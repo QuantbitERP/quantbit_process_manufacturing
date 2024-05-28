@@ -19,7 +19,6 @@ function change_date(frm){
 		})
 	}
 	if(frm.doc.finished_products){
-		
 	frm.doc.finished_products.forEach(row=>{
 		row.date = frm.doc.date
 	})
@@ -33,13 +32,60 @@ function change_date(frm){
 
 }
 
+function set_data(frm) {
+	if (frm.doc.materials) {
+		frm.doc.materials.forEach(row => {
+			row.season = frm.doc.season
+		});
+		frm.doc.materials.forEach(row => {
+			row.cost_center = frm.doc.cost_center
+		});
+		frm.doc.materials.forEach(row => {
+			row.branch = frm.doc.branch
+			// console.log(frm.doc.branch)
+		});
+	}
+}
+
 frappe.ui.form.on("Process Definitions",{
-	refresh:function(frm){change_date(frm)},
+	setup:function(frm){
+		frm.set_query("cost_center", function (doc, cdt, cdn) { // Replace with the name of the link field
+			return {
+				filters: {
+					"company": frm.doc.company
+				}
+			};
+		});
+		frm.set_query("branch", function (doc, cdt, cdn) { // Replace with the name of the link field
+			return {
+				filters: {
+					"company": frm.doc.company
+				}
+			};
+		});
+	},
+	season: function (frm) {
+		set_data(frm)
+	},
+	cost_center: function (frm) {
+		set_data(frm)
+	},
+	branch: function (frm) {
+		set_data(frm)
+	},
+	
+	refresh:function(frm){
+		change_date(frm)
+		set_data(frm)
+	},
 	date:function(frm){change_date(frm)},
 })
 
 frappe.ui.form.on("Process Definition Raw Material", {
-	materials_add:function(frm){change_date(frm)},
+	materials_add:function(frm){
+		change_date(frm)
+		set_data(frm)
+	},
 	quantity:function(frm, cdt, cdn){
 	var d = locals[cdt][cdn];
 	var total1 = 0;

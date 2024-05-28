@@ -6,6 +6,9 @@ class ProcessOrders(Document):
 	def on_submit(self):
 		if not self.is_material_transfer_required:
 			self.add_manufacture_stock_entry()
+		if self.for_multiple_inputs:
+			self.add_manufacture_stock_entry_for_multiple_inputs()
+	
 
 	@frappe.whitelist()
 	def get_data(self):
@@ -16,11 +19,15 @@ class ProcessOrders(Document):
 			doc = frappe.get_doc('Process Definitions', self.process_definitions)
 			self.process_name = doc.process_name
 			self.date = doc.date
+			self.time = doc.time
 			self.company = doc.company
 			self.set_source_warehouse = doc.set_source_warehouse
 			self.wip_warehouse = doc.wip_warehouse
 			self.is_material_transfer_required = doc.is_material_transfer_required
 			self.for_multiple_inputs = doc.for_multiple_inputs
+			self.season = doc.season
+			self.branch = doc.branch
+			self.cost_center = doc.cost_center
 
 			for d in doc.get("materials"):
 				self.append('materials', {
@@ -32,7 +39,10 @@ class ProcessOrders(Document):
 					"amount": d.amount,
 					"item_name": d.item_name,
 					"source_warehouse": d.source_warehouse,
-					"date":self.date
+					"date":self.date,
+					"season":d.season,
+					"branch":d.branch,
+					"cost_center":d.cost_center
 				})
 			for k in doc.get("store_materials_consumables"):
 				self.append('store_materials_consumables', {
@@ -115,7 +125,10 @@ class ProcessOrders(Document):
 				# "transfer_qty":0,
 				# "conversion_factor":0,
 				"s_warehouse":d.source_warehouse,
-				"t_warehouse":self.wip_warehouse
+				"t_warehouse":self.wip_warehouse,
+				"season":d.season,
+				"branch":d.branch,
+				"cost_center":d.cost_center
 
 			})   
 		doc.custom_process_orders = self.name    
@@ -126,68 +139,64 @@ class ProcessOrders(Document):
 		frappe.db.set_value("Process Orders",self.name,"start_button_flag",0)
 
 		
-		# add Manufacture Stock Entry
+	# add Manufacture Stock Entry
 	@frappe.whitelist()
 	def add_manufacture_stock_entry(self):
-		if self.start_button_flag == 0 or not self.is_material_transfer_required:
-			for d in self.get("finished_products"):
-				doc = frappe.new_doc("Stock Entry")
-				doc.stock_entry_type = "Manufacture"
-				doc.set_posting_time = True
-				doc.posting_date = self.date
-				for j in self.get("materials"):
+		if (self.start_button_flag == 0 or not self.is_material_transfer_required):
+			if not self.for_multiple_inputs:
+				for d in self.get("finished_products"):
+					doc = frappe.new_doc("Stock Entry")
+					doc.stock_entry_type = "Manufacture"
+					doc.set_posting_time = True
+					doc.posting_date = self.date
+					for j in self.get("materials"):
+						doc.append(
+							"items",
+							{
+								"item_code": j.item,
+								"qty": float(((self.materials_qty*d.quantity)/self.finished_products_qty)),
+								"uom": j.uom,
+								# "transfer_qty":0,
+								# "conversion_factor":0,
+								"s_warehouse": j.source_warehouse,
+								# "is_finished_item":True
+								"season":d.season,
+								"branch":d.branch,
+								"cost_center":d.cost_center
+								
+							},
+						)
+					
 					doc.append(
 						"items",
 						{
-							"item_code": j.item,
-							"qty": float(((self.materials_qty*d.quantity)/self.finished_products_qty)),
-							"uom": j.uom,
+							"item_code": d.item,
+							"qty": d.quantity,
+							"uom": d.uom,
 							# "transfer_qty":0,
 							# "conversion_factor":0,
-							"s_warehouse": self.wip_warehouse,
-							# "is_finished_item":True
-					
-							
+							"t_warehouse": d.target_warehouse,
+							"is_finished_item": True,
+							"season":self.season,
+							"branch":self.branch,
+							"cost_center":self.cost_center
 						},
-					)
-				for k in self.get("store_materials_consumables"):
-					doc.append("items",
-							{
-							"item_code": k.item,
-							"qty": float(((d.quantity*k.quantity)/self.finished_products_qty)),
-							"uom": k.uom,
-							"s_warehouse": k.source_warehouse,
-					},
-				)
-				doc.append(
-					"items",
-					{
-						"item_code": d.item,
-						"qty": d.quantity,
-						"uom": d.uom,
-						# "transfer_qty":0,
-						# "conversion_factor":0,
-						"t_warehouse": d.target_warehouse,
-						"is_finished_item": True,
-					},
-				)	
-					# doc.insert()
-					# doc.save()
-					# doc.submit()
-				for k in self.get("operation_cost"):
-					doc.append("additional_costs",{
-							"expense_account": k.operations,
-							"description": k.description,
-							"amount": (k.cost * d.quantity)/self.finished_products_qty,
-						},
-					)
+					)	
+						
+					for k in self.get("operation_cost"):
+						doc.append("additional_costs",{
+								"expense_account": k.operations,
+								"description": k.description,
+								"amount": (k.cost * d.quantity)/self.finished_products_qty,
+							},
+						)
 
-				doc.custom_process_orders = self.name
-				doc.insert()
-				doc.save()
-				doc.submit()
-				frappe.msgprint("Manufacture entry successfully inserted")
-				frappe.db.set_value("Process Orders", self.name, "finish_button_flag", 0)
+					doc.custom_process_orders = self.name
+					doc.insert()
+					doc.save()
+					doc.submit()
+					frappe.msgprint("Manufacture entry successfully inserted")
+					frappe.db.set_value("Process Orders", self.name, "finish_button_flag", 0)
 		else:
 			frappe.msgprint("Material Transfer stock entry should be done before manufacture stock entry")
 
@@ -214,10 +223,63 @@ class ProcessOrders(Document):
 		id = 0
 		raw_total = 0
 		for t in self.get("materials"):
-			t.quantity = (self.finished_products_qty*pd_raw_qty[id])/doc.total_quantity
+			t.quantity = (self.finished_products_qty*pd_raw_qty[id])/doc.finished_products_qty
 			id = id + 1
 			raw_total+=t.quantity
 		self.materials_qty = raw_total
 
 
-	
+	def add_manufacture_stock_entry_for_multiple_inputs(self):
+			for d in self.get("finished_products"):
+				doc = frappe.new_doc("Stock Entry")
+				doc.stock_entry_type = "Manufacture"
+				doc.set_posting_time = True
+				doc.posting_date = self.date
+				for j in self.get("materials"):
+					doc.append(
+						"items",
+						{
+							"item_code": j.item,
+							"qty": j.quantity,
+							"uom": j.uom,
+							# "transfer_qty":0,
+							# "conversion_factor":0,
+							"s_warehouse": j.source_warehouse,
+							# "is_finished_item":True
+							"season":j.season,
+							"branch":j.branch,
+							"cost_center":j.cost_center
+							
+						},
+					)
+				
+				doc.append(
+					"items",
+					{
+						"item_code": d.item,
+						"qty": d.quantity,
+						"uom": d.uom,
+						# "transfer_qty":0,
+						# "conversion_factor":0,
+						"t_warehouse": d.target_warehouse,
+						"is_finished_item": True,
+						"season":self.season,
+						"branch":self.branch,
+						"cost_center":self.cost_center
+					},
+				)	
+					
+				for k in self.get("operation_cost"):
+					doc.append("additional_costs",{
+							"expense_account": k.operations,
+							"description": k.description,
+							"amount": (k.cost * d.quantity)/self.finished_products_qty,
+						},
+					)
+
+				doc.custom_process_orders = self.name
+				doc.insert()
+				doc.save()
+				doc.submit()
+				frappe.msgprint("Manufacture entry successfully inserted")
+				# frappe.db.set_value("Process Orders", self.name, "finish_button_flag", 0)

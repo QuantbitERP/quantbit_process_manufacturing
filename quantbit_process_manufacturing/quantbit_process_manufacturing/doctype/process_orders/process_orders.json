@@ -10,12 +10,16 @@
   "section_break_1",
   "naming_series",
   "process_name",
-  "is_material_transfer_required",
+  "season",
+  "branch",
   "for_multiple_inputs",
+  "is_material_transfer_required",
   "column_break_e3bil",
   "date",
+  "time",
   "company",
   "process_definitions",
+  "cost_center",
   "stock_locations_section",
   "source_warehouse",
   "wip_warehouse",
@@ -141,7 +145,8 @@
    "fieldname": "materials",
    "fieldtype": "Table",
    "label": "Materials ",
-   "options": "Process Order Raw Material"
+   "options": "Process Order Raw Material",
+   "read_only_depends_on": "eval:doc.for_multiple_inputs == 1"
   },
   {
    "fieldname": "section_break_k9x0i",
@@ -328,6 +333,7 @@
   {
    "fieldname": "store_materials_consumables",
    "fieldtype": "Table",
+   "hidden": 1,
    "label": "Store Materials Consumables",
    "options": "Store Materials Consumables"
   },
@@ -352,6 +358,29 @@
    "fieldtype": "Check",
    "label": "For Multiple Inputs",
    "read_only": 1
+  },
+  {
+   "fieldname": "time",
+   "fieldtype": "Time",
+   "label": "Time"
+  },
+  {
+   "fieldname": "season",
+   "fieldtype": "Link",
+   "label": "Season",
+   "options": "Season"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -362,7 +391,7 @@
    "link_fieldname": "custom_process_orders"
   }
  ],
- "modified": "2024-05-25 12:30:16.077883",
+ "modified": "2024-05-28 17:54:01.491193",
  "modified_by": "Administrator",
  "module": "Quantbit Process Manufacturing",
  "name": "Process Orders",

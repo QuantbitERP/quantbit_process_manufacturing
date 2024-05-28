@@ -71,6 +71,7 @@ frappe.ui.form.on('Process Order Material Transfer Details', {
 		frm.doc.items.forEach(row=>{
 			row.date = frm.doc.date
 		})
+		set_data(frm)
 	},
 	items_add: function (frm,) {
 		frm.doc.items.forEach(row => {

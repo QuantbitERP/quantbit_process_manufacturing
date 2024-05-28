@@ -29,14 +29,29 @@ function change_date(frm){
 		})
 	}
 	
-	
-	
-
 
 }
 
+function set_data(frm) {
+	if (frm.doc.materials) {
+		frm.doc.materials.forEach(row => {
+			row.season = frm.doc.season
+		});
+		frm.doc.materials.forEach(row => {
+			row.cost_center = frm.doc.cost_center
+		});
+		frm.doc.materials.forEach(row => {
+			row.branch = frm.doc.branch
+			// console.log(frm.doc.branch)
+		});
+	}
+}
+
 frappe.ui.form.on('Process Order Raw Material', {
-	materials_add:function(frm){change_date(frm)},
+	materials_add:function(frm){
+		change_date(frm)
+		set_data(frm)
+	},
 	quantity: function (frm, cdt, cdn) {
 		var d = locals[cdt][cdn]
 		var total1 = 0;
@@ -97,6 +112,7 @@ frappe.ui.form.on('Process Order Finished Products', {
 		frm.set_value('finished_products_qty', total1)
 		refresh_field('finished_products_qty')
 		if(frm.doc.for_multiple_inputs){
+
 			frm.call({
 				method:"for_multiple_input",
 				doc:frm.doc
@@ -174,6 +190,31 @@ frappe.ui.form.on('Process Orders', {
 })
 // process orders
 frappe.ui.form.on('Process Orders', {
+	setup:function(frm){
+		frm.set_query("cost_center", function (doc, cdt, cdn) { // Replace with the name of the link field
+			return {
+				filters: {
+					"company": frm.doc.company
+				}
+			};
+		});
+		frm.set_query("branch", function (doc, cdt, cdn) { // Replace with the name of the link field
+			return {
+				filters: {
+					"company": frm.doc.company
+				}
+			};
+		});
+	},
+	season: function (frm) {
+		set_data(frm)
+	},
+	cost_center: function (frm) {
+		set_data(frm)
+	},
+	branch: function (frm) {
+		set_data(frm)
+	},
 	refresh: function (frm) {
 		if (frm.doc.docstatus === 1 && frm.doc.start_button_flag === 1 && frm.doc.is_material_transfer_required) {
 			frm.add_custom_button(__('Start'), function () {
@@ -185,7 +226,7 @@ frappe.ui.form.on('Process Orders', {
 				frm.events.finish_button(frm);
 			}).addClass('btn-danger');
 		}
-
+		set_data(frm)
 	},
 
 
@@ -220,6 +261,7 @@ frappe.ui.form.on('Process Orders', {
 
 
 frappe.ui.form.on('Process Orders', {
+	onload:function(frm){set_data(frm)},
 	date:function(frm){change_date(frm)},
 	materials_qty: function (frm) {
 		let total_qty = 0
