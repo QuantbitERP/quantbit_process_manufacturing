@@ -160,9 +160,9 @@ class ProcessOrders(Document):
 								# "conversion_factor":0,
 								"s_warehouse": j.source_warehouse,
 								# "is_finished_item":True
-								"season":d.season,
-								"branch":d.branch,
-								"cost_center":d.cost_center
+								"season":j.season,
+								"branch":j.branch,
+								"cost_center":j.cost_center
 								
 							},
 						)
